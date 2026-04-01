@@ -1,0 +1,52 @@
+exclude: |
+  ^migrations/
+  ^tests/
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: check-ast
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks
+        name: Secret scanning
+
+  - repo: https://github.com/osprey-oss/deptry.git
+    rev: 0.25.1
+    hooks:
+      - id: deptry
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.7
+    hooks:
+      - id: ruff
+        name: Linting code
+      - id: ruff-format
+        name: Formatting code
+
+  - repo: local
+    hooks:
+      - id: vulture
+        name: Dead code detection
+        entry: uv run vulture src/
+        language: system
+        pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: ty
+        name: Type checking
+        entry: uv run ty check .
+        language: system
+        pass_filenames: false

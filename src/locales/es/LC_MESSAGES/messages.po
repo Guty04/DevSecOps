@@ -1,0 +1,17 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+
+msgid "auth.error.invalid_credentials"
+msgstr "Credenciales invalidas"
+
+msgid "auth.error.insufficient_permissions"
+msgstr "Permisos insuficientes"
+
+msgid "user.error.already_exist"
+msgstr "El usuario ya existe"
+
+msgid "user.error.not_found"
+msgstr "No se encontro el usuario"

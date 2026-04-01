@@ -1,0 +1,97 @@
+[project]
+name = "devsecops"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "asyncpg>=0.31.0",
+    "fastapi>=0.135.2",
+    "fastapi-limiter>=0.2.0",
+    "infisicalsdk>=1.0.16",
+    "logfire[fastapi,httpx]>=4.15.1",
+    "pwdlib[argon2]>=0.3.0",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.13.1",
+    "pyjwt>=2.12.1",
+    "pyrate-limiter>=4.1.0",
+    "scalar-fastapi>=1.8.1",
+    "secure>=1.0.1",
+    "sqlalchemy>=2.0.48",
+]
+
+[dependency-groups]
+dev = [
+    "alembic>=1.18.4",
+    "babel>=2.18.0",
+    "bandit>=1.9.4",
+    "deptry>=0.25.1",
+    "fastapi[standard]>=0.135.2",
+    "logfire[sqlalchemy]>=4.15.1",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.8",
+    "ty>=0.0.27",
+    "vulture>=2.16",
+]
+
+[tool.fastapi]
+entrypoint = "src.main:app"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "A",      # builtins shadowing
+    "DTZ",    # datetime with timezone
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "S",      # flake8-bandit (security)
+    "B",      # flake8-bugbear
+    "T20",    # flake8-print
+    "RET",    # flake8-return
+    "SIM",    # flake8-simplify
+    "ASYNC",  # flake8-async
+    "C4",     # comprehensions
+    "PERF",   # rendimiento
+    "RUF",    # reglas nativas de ruff
+    "TRY",    # try/except
+    "PTH",    # pathlib
+    "ISC",    # implícit strings concatenation
+    "FAST",   # fastapi
+    "LOG",    # logging
+    "PIE",    # unnecesary patterns
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "ARG001", "ARG002"]
+"migrations/**" = ["ALL"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Security", "fastapi.Field"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+
+[tool.deptry]
+extend_exclude = ["migrations/"]
+
+[tool.deptry.per_rule_ignores]
+DEP002 = ["asyncpg"]
+
+[tool.vulture]
+ignore_decorators = ["@app.*","@router.*","@classmethod"]
+ignore_names = ["model_config", "cls"]
+exclude = [".venv","src/database/models"]
+sort_by_size = true
+min_confidence = 80
