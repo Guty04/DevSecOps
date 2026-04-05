@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from uuid import UUID
 
-from sqlalchemy import Result, ScalarResult, Select, select
+from sqlalchemy import ScalarResult, Select, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -22,8 +22,7 @@ class UserRepository:
             select(User).options(selectinload(User.role).selectinload(Role.permissions))
         ).where(User.email == email)
 
-        result: Result[tuple[User]] = await self._session.execute(statement)
-        return result.scalar_one_or_none()
+        return await self._session.scalar(statement)
 
     async def get_user_by_id(self, user_id: UUID) -> User | None:
         return await self._session.get(User, user_id)

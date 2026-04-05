@@ -14,4 +14,4 @@ class Role(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(50), unique=True, comment="Role display name")
 
-    permissions: Mapped[set[Permission]] = relationship(secondary="role_x_permission", lazy="joined")
+    permissions: Mapped[set[Permission]] = relationship(secondary="role_x_permission", lazy="raise")

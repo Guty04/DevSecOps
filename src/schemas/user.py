@@ -1,14 +1,12 @@
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, computed_field
+from pydantic import EmailStr, Field, computed_field
+
+from .base import Base
 
 
-class UserBase(BaseModel):
-    model_config = ConfigDict(from_attributes=True, frozen=True)
-
-
-class User(UserBase):
-    id: UUID | None = None
+class User(Base):
+    id: UUID | None = Field(default=None, description="")
     name: str
     last_name: str
     email: EmailStr
@@ -19,7 +17,7 @@ class User(UserBase):
         return f"{self.name} {self.last_name}"
 
 
-class UserCreate(UserBase):
+class UserCreate(User):
     name: str
     lastname: str
     email: EmailStr

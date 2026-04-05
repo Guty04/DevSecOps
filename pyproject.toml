@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "asyncpg>=0.31.0",
+    "email-validator>=2.3.0",
     "fastapi>=0.135.2",
     "fastapi-limiter>=0.2.0",
     "infisicalsdk>=1.0.16",
@@ -87,7 +88,7 @@ docstring-code-format = true
 extend_exclude = ["migrations/"]
 
 [tool.deptry.per_rule_ignores]
-DEP002 = ["asyncpg"]
+DEP002 = ["asyncpg", "email-validator"]
 
 [tool.vulture]
 ignore_decorators = ["@app.*","@router.*","@classmethod"]

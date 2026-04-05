@@ -20,4 +20,4 @@ class User(Base):
     password: Mapped[str] = mapped_column(String(255), comment="Argon2-hashed password")
     id_role: Mapped[int] = mapped_column(ForeignKey("role.id"), comment="FK to assigned role")
 
-    role: Mapped[Role] = relationship(lazy="joined")
+    role: Mapped[Role] = relationship(lazy="raise")
